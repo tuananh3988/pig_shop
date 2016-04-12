@@ -1,0 +1,64 @@
+<h1>Customer</h1>
+<hr/>
+<div ng-controller="CustomerController">
+    <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input type="text" class="form-control" placeholder="Search" ng-model="searchCustomer">
+          </div>      
+        </div>
+    </form>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                <a ui-sref="customer" ng-click="sortType = 'customer_id'; sortReverse = !sortReverse">ID
+                    <span ng-show="sortType == 'customer_id' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'customer_id' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th><a ui-sref="customer" ng-click="sortType = 'adress'; sortReverse = !sortReverse">Adress
+                    <span ng-show="sortType == 'adress' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'adress' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </th>
+            <th>Apartment</th>
+            <th></th>
+        </tr>
+       <tr ng-repeat="customer in customers | orderBy:sortType:sortReverse | filter:searchCustomer">
+            <td>
+                <span ng-click="customerForm.$show()" e-name="customer.customer_id" style="cursor: pointer;">{{ customer.customer_id  }}</span>
+            </td>
+            <td>
+                <span e-name="customer.name" editable-text="customer.customer_name" e-form="customerForm">{{ customer.customer_name || 'empty' }}</span>
+            </td>
+            <td>
+                <span e-name="customer.phone" editable-text="customer.phone" e-form="customerForm">{{ customer.phone || 'empty' }}</span>
+            </td>
+            <td>
+                <span e-name="customer.adress" editable-text="customer.adress" e-form="customerForm">{{ customer.adress || 'empty' }}</span>
+            </td>
+            <td>
+                <span e-name="customer.apartment" editable-select="customer.apartment" e-form="customerForm" e-ng-options="a.value as a.text for a in apartments">{{ showApartment(customer) }}</span>
+            </td>
+            <td>
+                
+                <form editable-form name="customerForm" onbeforesave="saveUser($data, user.id)" ng-show="customerForm.$visible" class="form-buttons form-inline" shown="inserted == user">
+                    <button type="submit" ng-disabled="customerForm.$waiting" class="btn btn-primary">
+                      save
+                    </button>
+                    <button type="button" ng-disabled="customerForm.$waiting" ng-click="customerForm.$cancel()" class="btn btn-default">
+                      cancel
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!customerForm.$visible">
+                  <button class="btn btn-primary" ng-click="customerForm.$show()">edit</button>
+                  <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                </div> 
+                
+            </td>
+       </tr>
+    </table>
+</div>

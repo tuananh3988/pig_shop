@@ -1,0 +1,26 @@
+﻿<!doctype html>
+<html ng-app="PigApp">
+    <head>
+        <title>Manager Pig meal</title>
+        <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+	<script src="app.js"></script>
+    </head>
+    <body class="container">
+        <div class="navbar">
+            <div class="navbar-inner">
+              <a class="brand" ui-sref="home">Home</a>
+              <ul class="nav">
+                <li><a ui-sref="customer">Customers</a></li>
+              </ul>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="span12">
+            <div class="well" ui-view></div>        
+          </div>
+        </div>    
+    </body>
+</html>
