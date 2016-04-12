@@ -44,8 +44,7 @@
                 <span e-name="customer.apartment" editable-select="customer.apartment" e-form="customerForm" e-ng-options="a.value as a.text for a in apartments">{{ showApartment(customer) }}</span>
             </td>
             <td>
-                
-                <form editable-form name="customerForm" onbeforesave="saveUser($data, user.id)" ng-show="customerForm.$visible" class="form-buttons form-inline" shown="inserted == user">
+                <form editable-form name="customerForm" onbeforesave="saveUser($data, user.id)" ng-show="customerForm.$visible" class="form-buttons form-inline" shown="inserted == customer">
                     <button type="submit" ng-disabled="customerForm.$waiting" class="btn btn-primary">
                       save
                     </button>
@@ -53,11 +52,6 @@
                       cancel
                     </button>
                 </form>
-                <div class="buttons" ng-show="!customerForm.$visible">
-                  <button class="btn btn-primary" ng-click="customerForm.$show()">edit</button>
-                  <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
-                </div> 
-                
             </td>
        </tr>
     </table>
