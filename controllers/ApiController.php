@@ -40,5 +40,13 @@ class ApiController extends Controller
         $customers = Customers::find()->asArray()->all();
         return $customers;
     }
+    
+    public function actionCustomerSave()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $data = Yii::$app->request->post();
+        var_dump($data);die;
+        return $customers;
+    }
 
 }

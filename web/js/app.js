@@ -44,6 +44,28 @@ app.controller('CustomerController', function($scope, $filter, $http) {
         }
     };
     
+    // add user
+    $scope.addUser = function () {
+        $scope.inserted = {
+            customer_id: $scope.customers.length + 1,
+            customer_name: '',
+            phone: '',
+            adress: '',
+            apartment: null,
+        };
+        $scope.customers.push($scope.inserted);
+    };
+    
+    $scope.saveUser = function(customer) {
+        //$scope.user not updated yet
+         var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+        }
+        return $http.post('api/customer-save', customer, config);
+    };
+    
     //config filter
     $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
