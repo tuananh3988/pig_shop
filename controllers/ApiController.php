@@ -44,9 +44,15 @@ class ApiController extends Controller
     public function actionCustomerSave()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $data = Yii::$app->request->post();
-        var_dump($data);die;
-        return $customers;
+        $post = json_decode(file_get_contents('php://input'), true);
+        $customer = Customers::findOne($post['customer_id']);
+        if (empty($customer)) {
+            $customer = new Customers();
+        }
+        
+        $customer->setAttributes($post);
+        $customer->adress = strtoupper($customer->adress);
+        $customer->save();
     }
 
 }

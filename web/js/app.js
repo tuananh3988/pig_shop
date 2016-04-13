@@ -55,15 +55,11 @@ app.controller('CustomerController', function($scope, $filter, $http) {
         };
         $scope.customers.push($scope.inserted);
     };
-    
-    $scope.saveUser = function(customer) {
+        
+    $scope.saveUser = function(data, id) {
         //$scope.user not updated yet
-         var config = {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-                }
-        }
-        return $http.post('api/customer-save', customer, config);
+        angular.extend(data, {customer_id: id});
+        return $http.post('api/customer-save', data);
     };
     
     //config filter

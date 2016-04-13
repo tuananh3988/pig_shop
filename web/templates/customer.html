@@ -32,19 +32,19 @@
                 <span ng-click="customerForm.$show()" e-name="customer.customer_id" style="cursor: pointer;">{{ customer.customer_id  }}</span>
             </td>
             <td>
-                <span e-name="customer.name" editable-text="customer.customer_name" e-form="customerForm">{{ customer.customer_name || 'empty' }}</span>
+                <span e-name="customer_name" editable-text="customer.customer_name" e-required e-form="customerForm">{{ customer.customer_name || 'empty' }}</span>
             </td>
             <td>
-                <span e-name="customer.phone" editable-text="customer.phone" e-form="customerForm">{{ customer.phone || 'empty' }}</span>
+                <span e-name="phone" editable-text="customer.phone" e-form="customerForm">{{ customer.phone || 'empty' }}</span>
             </td>
             <td>
-                <span e-name="customer.adress" editable-text="customer.adress" e-form="customerForm">{{ customer.adress || 'empty' }}</span>
+                <span e-name="adress" editable-text="customer.adress" e-required e-style="text-transform: uppercase;" e-form="customerForm">{{ (customer.adress || 'empty') | uppercase }}</span>
             </td>
             <td>
-                <span e-name="customer.apartment" editable-select="customer.apartment" e-form="customerForm" e-ng-options="a.value as a.text for a in apartments">{{ showApartment(customer) }}</span>
+                <span e-name="apartment" editable-select="customer.apartment" e-form="customerForm" e-ng-options="a.value as a.text for a in apartments">{{ showApartment(customer) }}</span>
             </td>
             <td>
-                <form editable-form name="customerForm" onbeforesave="saveUser(customer)" ng-show="customerForm.$visible" class="form-buttons form-inline" shown="inserted == customer">
+                <form editable-form name="customerForm" onbeforesave="saveUser($data, customer.customer_id)" ng-show="customerForm.$visible" class="form-buttons form-inline" shown="inserted == customer">
                     <button type="submit" ng-disabled="customerForm.$waiting" class="btn btn-primary">
                       save
                     </button>
@@ -55,5 +55,5 @@
             </td>
        </tr>
     </table>
-    <button class="btn btn-default" ng-click="addUser()">Add row</button>
+    <button class="btn btn-default" ng-click="addUser()">Add Customer</button>
 </div>
