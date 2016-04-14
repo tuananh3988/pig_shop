@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\Customers;
+use app\models\ProductType;
 
 class ApiController extends Controller
 {
@@ -53,6 +54,26 @@ class ApiController extends Controller
         $customer->setAttributes($post);
         $customer->adress = strtoupper($customer->adress);
         $customer->save();
+    }
+    
+    public function actionProductTypeList()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ProductType::find()->asArray()->all();
+    }
+    
+    public function actionProductTypeSave()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $post = json_decode(file_get_contents('php://input'), true);
+        $productType = ProductType::findOne($post['product_type_id']);
+        if (empty($productType)) {
+            $productType = new ProductType();
+        }
+        
+        $productType->setAttributes($post);
+        $productType->product_type_machine = strtoupper($productType->product_type_machine);
+        $productType->save();
     }
 
 }

@@ -9,8 +9,10 @@
     <link href="css\xeditable.css" rel="stylesheet"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
-    <script src="js\xeditable.js"></script>
-	<script src="js\app.js"></script>
+    <script src="app/js/xeditable.js"></script>
+	<script src="app/app.js"></script>
+    <script src="app/controllers/customerController.js"></script>
+    <script src="app/controllers/productTypeController.js"></script>
 </head>
 <body>
     <div class="container">
@@ -21,7 +23,7 @@
               </div>
               <ul class="nav navbar-nav">
                 <li><a ui-sref="customer">Customers</a></li>
-                <li><a href="#">Page 1</a></li>
+                <li><a ui-sref="product-type">Product type</a></li>
                 <li><a href="#">Page 2</a></li> 
                 <li><a href="#">Page 3</a></li> 
               </ul>

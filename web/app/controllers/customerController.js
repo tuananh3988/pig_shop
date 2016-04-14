@@ -1,31 +1,3 @@
-﻿var app = angular.module('PigApp', ['ui.router', "xeditable"]);
-
-app.run(function(editableOptions) {
-  editableOptions.theme = 'bs3';
-});
-
-app.config(function($stateProvider, $urlRouterProvider) {
-    
-    $urlRouterProvider.otherwise('/home'); // Mọi đường dẫn không hợp lệ đều được chuyển đến state home
-    
-    $stateProvider
-       
-        .state('home', {    // Định ngĩa 1 state home
-            url: '/home',  // khai báo Url hiển thị
-            templateUrl: './templates/home.html',  // đường dẫn view
-            controller: function($scope) {  // Khai báo 1 controller cho state home
-                
-            }
-        })
-        .state('customer', {    // Định ngĩa 1 state home
-            url: '/customer',  // khai báo Url hiển thị
-            templateUrl: './templates/customer.html',  // đường dẫn view
-            controller: function($scope) {  // Khai báo 1 controller cho state home
-                
-            }
-        })
-});
-
 app.controller('CustomerController', function($scope, $filter, $http) {
     //list Apartment
     $scope.apartments = [
@@ -63,7 +35,7 @@ app.controller('CustomerController', function($scope, $filter, $http) {
     };
     
     //config filter
-    $scope.sortType     = 'name'; // set the default sort type
+    $scope.sortType     = ''; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
     $scope.searchFish   = '';     // set the default search/filter term
     //get list
@@ -73,7 +45,4 @@ app.controller('CustomerController', function($scope, $filter, $http) {
     });
     
 });
-
-
-
 
