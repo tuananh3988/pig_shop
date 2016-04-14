@@ -1,18 +1,19 @@
-app.controller('ProductTypeController', function($scope, $filter, $http) {
+app.controller('ProductController', function($scope, $filter, $http) {
     // add user
-    $scope.addProductType = function () {
+    $scope.addProduct = function () {
         $scope.inserted = {
-            product_type_id: $scope.productTypes.length + 1,
-            product_type_name: '',
-            product_type_machine: '',
+            product_id: $scope.products.length + 1,
+            product_name: '',
+            product_type_id: '',
+            price: '',
         };
-        $scope.productTypes.push($scope.inserted);
+        $scope.products.push($scope.inserted);
     };
         
-    $scope.saveProductType = function(data, id) {
+    $scope.saveProduct = function(data, id) {
         //$scope.user not updated yet
-        angular.extend(data, {product_type_id: id});
-        return $http.post('api/product-type-save', data);
+        angular.extend(data, {product_id: id});
+        return $http.post('api/product-save', data);
     };
     
     //config filter
@@ -20,9 +21,9 @@ app.controller('ProductTypeController', function($scope, $filter, $http) {
     $scope.sortReverse  = false;  // set the default sort order
     $scope.searchFish   = '';     // set the default search/filter term
     //get list
-    var url="api/product-type-list";
+    var url="api/product-list";
     $http.get(url).success( function(response) {
-        $scope.productTypes = response;
+        $scope.products = response;
     });
     
 });
