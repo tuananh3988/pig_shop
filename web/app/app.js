@@ -49,12 +49,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 
             }
         })
-        .state('add-order', {    // Định ngĩa 1 state home
+        .state('order-add', {    // Định ngĩa 1 state home
             data: {
                 pageTitle: 'Pig shop | New order'
             },
-            url: '/add-order',  // khai báo Url hiển thị
-            templateUrl: 'app/views/add-order.html',  // đường dẫn view
+            url: '/order-add',  // khai báo Url hiển thị
+            templateUrl: 'app/views/order-add.html',  // đường dẫn view
             controller: function($scope) {  // Khai báo 1 controller cho state home
                 
             }

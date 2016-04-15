@@ -11,7 +11,9 @@ use Yii;
  * @property integer $product_id
  * @property integer $order_id
  * @property integer $qty
+ * @property integer $qty_real
  * @property integer $custom_price
+ * @property integer $total_product
  * @property string $created_date
  * @property string $updated_date
  */
@@ -32,7 +34,7 @@ class ProductQty extends \yii\db\ActiveRecord
     {
         return [
             [['product_id', 'order_id', 'qty'], 'required'],
-            [['product_id', 'order_id', 'qty', 'custom_price'], 'integer'],
+            [['product_id', 'order_id', 'qty', 'qty_real', 'custom_price', 'total_product'], 'integer'],
             [['created_date', 'updated_date'], 'safe']
         ];
     }
@@ -47,7 +49,9 @@ class ProductQty extends \yii\db\ActiveRecord
             'product_id' => 'Product ID',
             'order_id' => 'Order ID',
             'qty' => 'Qty',
+            'qty_real' => 'Qty Real',
             'custom_price' => 'Custom Price',
+            'total_product' => 'Total Product',
             'created_date' => 'Created Date',
             'updated_date' => 'Updated Date',
         ];
