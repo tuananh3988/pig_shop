@@ -2,7 +2,7 @@
 <html lang="<?= Yii::$app->language ?>" ng-app="PigApp">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <title>Manager Pig meal</title>
+    <title update-title>Manager Pig meal</title>
     
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/sandstone/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -13,6 +13,7 @@
 	<script src="app/app.js"></script>
     <script src="app/controllers/customerController.js"></script>
     <script src="app/controllers/productTypeController.js"></script>
+    <script src="app/controllers/productController.js"></script>
 </head>
 <body>
     <div class="container">
@@ -23,6 +24,7 @@
               </div>
               <ul class="nav navbar-nav">
                 <li><a ui-sref="customer">Customers</a></li>
+                <li><a ui-sref="product">Products</a></li>
                 <li><a ui-sref="product-type">Product type</a></li>
                 <li><a href="#">Page 2</a></li> 
                 <li><a href="#">Page 3</a></li> 

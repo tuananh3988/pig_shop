@@ -12,40 +12,44 @@
     <table class="table table-hover">
         <tr>
             <th>
-                <a ui-sref="product-type" ng-click="sortType = 'product_type_id'; sortReverse = !sortReverse">ID
-                    <span ng-show="sortType == 'product_type_id' && !sortReverse" class="fa fa-caret-down"></span>
-                    <span ng-show="sortType == 'product_type_id' && sortReverse" class="fa fa-caret-up"></span>
+                <a ui-sref="product" ng-click="sortType = 'product_id'; sortReverse = !sortReverse">ID
+                    <span ng-show="sortType == 'product_id' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'product_id' && sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </th>
-            <th><a ui-sref="product-type" ng-click="sortType = 'product_type_name'; sortReverse = !sortReverse">Product Type Name
-                    <span ng-show="sortType == 'product_type_name' && !sortReverse" class="fa fa-caret-down"></span>
-                    <span ng-show="sortType == 'product_type_name' && sortReverse" class="fa fa-caret-up"></span>
+            <th><a ui-sref="product" ng-click="sortType = 'product_name'; sortReverse = !sortReverse">Product Name
+                    <span ng-show="sortType == 'product_name' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'product_name' && sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </th>
-            <th>Product Type Machine</th>
+            <th>Product Type</th>
+            <th>Price</th>
             <th></th>
         </tr>
-       <tr ng-repeat="productType in productTypes | orderBy:sortType: sortReverse | filter: searchProductType">
+       <tr ng-repeat="product in products | orderBy:sortType: sortReverse | filter: searchProduct">
             <td>
-                <span ng-click="productTypeForm.$show()" e-name="customer.customer_id" style="cursor: pointer;">{{ productType.product_type_id  }}</span>
+                <span ng-click="productForm.$show()" e-name="customer.customer_id" style="cursor: pointer;">{{ product.product_id  }}</span>
             </td>
             <td>
-                <span e-name="product_type_name" editable-text="productType.product_type_name" e-required e-form="productTypeForm">{{ productType.product_type_name || 'empty' }}</span>
+                <span e-name="product_name" editable-text="product.product_name" e-required e-form="productForm">{{ product.product_name || 'empty' }}</span>
             </td>
             <td>
-                <span e-name="product_type_machine" e-style="text-transform: uppercase;" editable-text="productType.product_type_machine" e-form="productTypeForm">{{ (productType.product_type_machine || 'empty') | uppercase }}</span>
+                <span e-name="product_type_id" editable-select="product.product_type_id" onshow="loadProductTypes()" e-form="productForm" e-ng-options="t.product_type_id as t.product_type_machine for t in productTypes">{{ showProductType(product) }}</span>
             </td>
             <td>
-                <form editable-form name="productTypeForm" onbeforesave="saveProductType($data, productType.product_type_id)" ng-show="productTypeForm.$visible" class="form-buttons form-inline" shown="inserted == productType">
-                    <button type="submit" ng-disabled="productTypeForm.$waiting" class="btn btn-primary">
+                <span e-name="price" editable-text="product.price" e-required e-form="productForm">{{ (product.price || 'empty') | number }}</span>
+            </td>
+            <td>
+                <form editable-form name="productForm" onbeforesave="saveProduct($data, product.product_id)" ng-show="productForm.$visible" class="form-buttons form-inline" shown="inserted == product">
+                    <button type="submit" ng-disabled="productForm.$waiting" class="btn btn-primary">
                       save
                     </button>
-                    <button type="button" ng-disabled="productTypeForm.$waiting" ng-click="productTypeForm.$cancel()" class="btn btn-default">
+                    <button type="button" ng-disabled="productForm.$waiting" ng-click="productForm.$cancel()" class="btn btn-default">
                       cancel
                     </button>
                 </form>
             </td>
        </tr>
     </table>
-    <button class="btn btn-default" ng-click="addProductType()">Add Product Type</button>
+    <button class="btn btn-default" ng-click="addProduct()">Add Product</button>
 </div>

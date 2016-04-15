@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\Customers;
 use app\models\ProductType;
+use app\models\Products;
 
 class ApiController extends Controller
 {
@@ -74,6 +75,26 @@ class ApiController extends Controller
         $productType->setAttributes($post);
         $productType->product_type_machine = strtoupper($productType->product_type_machine);
         $productType->save();
+    }
+    
+    public function actionProductList()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return Products::find()->select(['products.product_id', 'products.product_name', 'products.product_type_id', 'products.price', 'product_type.product_type_machine'])
+                ->join('INNER JOIN', 'product_type', 'product_type.product_type_id = products.product_type_id')->asArray()->all();
+    }
+    
+    public function actionProductSave()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $post = json_decode(file_get_contents('php://input'), true);
+        $product = Products::findOne($post['product_id']);
+        if (empty($product)) {
+            $product = new Products();
+        }
+        
+        $product->setAttributes($post);
+        $product->save();
     }
 
 }
