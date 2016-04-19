@@ -6,17 +6,39 @@
     
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/sandstone/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.0-rc3/angular-material.min.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
     <link href="css\xeditable.css" rel="stylesheet"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
-    <script src="app/js/angular-material.min.js"></script>
     <script src="app/js/xeditable.js"></script>
 	<script src="app/app.js"></script>
     <script src="app/controllers/customerController.js"></script>
     <script src="app/controllers/productTypeController.js"></script>
     <script src="app/controllers/productController.js"></script>
     <script src="app/controllers/ordersController.js"></script>
+    
+    <style>
+        md-autocomplete input:not(.md-input) {
+            padding: 0;
+        }
+        
+        .product-order md-input-container {
+            margin: 0;
+        }
+        .product-order.table {
+            margin-bottom: 0;
+        }
+        .product-order.table>thead>tr>th, .product-order.table>tbody>tr>th, .product-order.table>tfoot>tr>th, .product-order.table>thead>tr>td, .product-order.table>tbody>tr>td, .product-order.table>tfoot>tr>td {
+            border-top: none;
+            padding: 0 8px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">

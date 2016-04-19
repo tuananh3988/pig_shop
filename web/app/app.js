@@ -1,4 +1,5 @@
-﻿var app = angular.module('PigApp', ['ui.router', "xeditable"]);
+var app = angular.module('PigApp', ['ui.router', "xeditable", 'ngAnimate', "ngAria", 'ngMaterial']);
+
 
 app.run(function(editableOptions) {
   editableOptions.theme = 'bs3';

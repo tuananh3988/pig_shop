@@ -80,8 +80,15 @@ class ApiController extends Controller
     public function actionProductList()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $request = Yii::$app->request;
+        $get = $request->get();
+        $where = [];
+        if (isset($get['product_type_id'])) {
+            $where['products.product_type_id'] = $get['product_type_id'];
+        }
+        
         return Products::find()->select(['products.product_id', 'products.product_name', 'products.product_type_id', 'products.price', 'product_type.product_type_machine'])
-                ->join('INNER JOIN', 'product_type', 'product_type.product_type_id = products.product_type_id')->asArray()->all();
+                ->join('INNER JOIN', 'product_type', 'product_type.product_type_id = products.product_type_id')->where($where)->asArray()->all();
     }
     
     public function actionProductSave()
