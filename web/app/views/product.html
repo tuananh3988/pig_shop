@@ -26,7 +26,7 @@
             <th>Price</th>
             <th></th>
         </tr>
-       <tr ng-repeat="product in products | orderBy:sortType: sortReverse | filter: searchProduct">
+       <tr ng-repeat="product in products | toArray: true | orderBy:sortType: sortReverse | filter: searchProduct">
             <td>
                 <span ng-click="productForm.$show()" e-name="customer.customer_id" style="cursor: pointer;">{{ product.product_id  }}</span>
             </td>

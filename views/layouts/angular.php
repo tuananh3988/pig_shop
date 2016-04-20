@@ -12,6 +12,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+    <script src="https://cdn.rawgit.com/a8m/angular-filter/master/dist/angular-filter.js"></script>
 
     <!-- Angular Material Library -->
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
@@ -52,8 +53,6 @@
                 <li><a ui-sref="customer">Customers</a></li>
                 <li><a ui-sref="product">Products</a></li>
                 <li><a ui-sref="product-type">Product type</a></li>
-                <li><a href="#">Page 2</a></li> 
-                <li><a href="#">Page 3</a></li> 
               </ul>
             </div>
         </nav>

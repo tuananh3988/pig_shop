@@ -43,13 +43,7 @@
         //get products list
         var url="api/product-list?product_type_id=" + $scope.order.product_type_id;
         $http.get(url).success( function(response) {
-            var listProducts = response;
-            self.listProducts = listProducts.map(function (product) {
-                return {
-                    value: product.product_id,
-                    name: product.product_name
-                };
-            });
+            self.listProducts = response;
         });
 
         

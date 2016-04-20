@@ -88,7 +88,7 @@ class ApiController extends Controller
         }
         
         return Products::find()->select(['products.product_id', 'products.product_name', 'products.product_type_id', 'products.price', 'product_type.product_type_machine'])
-                ->join('INNER JOIN', 'product_type', 'product_type.product_type_id = products.product_type_id')->where($where)->asArray()->all();
+                ->join('INNER JOIN', 'product_type', 'product_type.product_type_id = products.product_type_id')->where($where)->indexBy('product_id')->asArray()->all();
     }
     
     public function actionProductSave()
