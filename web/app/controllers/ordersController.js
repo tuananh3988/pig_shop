@@ -6,14 +6,33 @@
             customer_id: '',
             product_type_id: 1,
             note: '',
+            total: 0,
+            total_qty: 0,
             products: [
                 {
                 product_id: '',
                 qty: 0,
-                custom_price: ''
+                real_qty: 0,
+                custom_price: '',
+                subtotal: 0,
+                free: false,
                 }
             ]
         }
+        
+        // add user
+        $scope.addProduct = function () {
+            $scope.inserted = {
+                product_id: '',
+                qty: 0,
+                real_qty: 0,
+                custom_price: '',
+                subtotal: 0,
+                free: false,
+            };
+            
+            $scope.order.products.push($scope.inserted);
+        };
         
         //get customer list
         var self = this;
@@ -84,14 +103,63 @@
             $log.info('Item changed to ' + JSON.stringify(item));
         }
         
-        // add user
-        $scope.addProduct = function () {
-            $scope.inserted = {
-                product_id: '',
-                qty: 0,
-                custom_price: ''
-            };
-            $scope.order.products.push($scope.inserted);
+        
+        $scope.getTotal = function(){
+            var total = 0;
+            for(var i = 0; i < $scope.order.products.length; i++){
+                var product = $scope.order.products[i];
+                total += (product.subtotal);
+            }
+            return total;
+        }
+        
+        $scope.getQty = function(){
+            var total = 0;
+            for(var i = 0; i < $scope.order.products.length; i++){
+                var product = $scope.order.products[i];
+                total += (product.qty);
+            }
+            return total;
+        }
+        
+        $scope.getRealQty = function(){
+            var total = 0;
+            for(var i = 0; i < $scope.order.products.length; i++){
+                var product = $scope.order.products[i];
+                total += (product.real_qty);
+            }
+            return total;
+        }
+        
+        
+        $scope.selected = [];
+        $scope.toggle = function (item, list) {
+          var idx = list.indexOf(item);
+          if (idx > -1) {
+            list.splice(idx, 1);
+          }
+          else {
+            list.push(item);
+          }
+        };
+        
+        $scope.exists = function (item, list) {
+          return list.indexOf(item) > -1;
+        };
+        
+        $scope.isIndeterminate = function() {
+          return ($scope.selected.length !== 0 &&
+              $scope.selected.length !== $scope.order.products.length);
+        };
+        $scope.isChecked = function() {
+          return $scope.selected.length === $scope.order.products.length;
+        };
+        $scope.toggleAll = function() {
+          if ($scope.selected.length === $scope.order.products.length) {
+            $scope.selected = [];
+          } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+            $scope.selected = $scope.order.products.slice(0);
+          }
         };
     }
 })();
