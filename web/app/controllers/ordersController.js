@@ -34,6 +34,24 @@
             $scope.order.products.push($scope.inserted);
         };
         
+        $scope.productSelected = [];
+        $scope.onChangeProduct = function(product_id, product) {
+            if (product_id) {
+                var index = $scope.productSelected.indexOf(product_id);
+                if (index > -1) {
+                    $scope.productSelected.splice(index, 1);
+                }
+            }
+            
+            setTimeout(function(){
+                $scope.productSelected.push(product.product_id);
+            }, 500);
+        };
+        
+        $scope.isProductDisable = function(product_id) {
+            return $scope.productSelected.indexOf(product_id) > -1;
+        }
+        
         //get customer list
         var self = this;
         var url="api/customer-list";
@@ -100,6 +118,7 @@
             $log.info('Text changed to ' + text);
         }
         function selectedItemChange(item) {
+            $scope.order.customer_id = item.value;
             $log.info('Item changed to ' + JSON.stringify(item));
         }
         
@@ -143,9 +162,11 @@
           }
         };
         
-        $scope.exists = function (item, list) {
-          return list.indexOf(item) > -1;
+        // remove user
+        $scope.removeProduct = function(index) {
+          $scope.order.products.splice(index, 1);
         };
+
         
         $scope.isIndeterminate = function() {
           return ($scope.selected.length !== 0 &&
@@ -157,9 +178,18 @@
         $scope.toggleAll = function() {
           if ($scope.selected.length === $scope.order.products.length) {
             $scope.selected = [];
+            $scope.setValue('free', false);
           } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
             $scope.selected = $scope.order.products.slice(0);
+            $scope.setValue('free', true);
           }
         };
+        
+        $scope.setValue = function(key, value) {
+            for(var i = 0; i < $scope.order.products.length; i++){
+                $scope.order.products[i][key] = value;
+                
+            }
+        }
     }
 })();

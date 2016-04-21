@@ -44,12 +44,13 @@
             <th>Real quatity</th>
             <th>Free</th>
             <th>Subtotal</th>
+            <th></th>
         </tr>
-       <tr ng-repeat="product in order.products">
+       <tr ng-repeat="(key, product) in order.products">
             <td>
                 <md-input-container class="md-block">
-                    <md-select ng-model="product.product_id">
-                        <md-option ng-repeat="p in ctrl.listProducts" value="{{ p.product_id }}">
+                    <md-select ng-model="product.product_id" ng-change="onChangeProduct('{{product.product_id}}', product)" >
+                        <md-option ng-repeat="p in ctrl.listProducts" value="{{ p.product_id }}" ng-disabled="isProductDisable(p.product_id)">
                           {{ p.product_name }}
                         </md-option>
                     </md-select>
@@ -74,19 +75,20 @@
                </md-input-container>
             </td>
             <td>
-                <md-checkbox style="margin-top: 5px;" ng-model="product.free" ng-checked="exists(product, selected)" ng-click="toggle(product, selected)">
+                <md-checkbox style="margin-top: 5px;" ng-model="product.free"  ng-click="toggle(product, selected)">
                 </md-checkbox>
             </td>
-            <td style="padding-top: 10px;">
+            <td style="padding-top: 6px;">
                 {{ product.subtotal = product.free ? 0 : product.product_id ? product.custom_price ? product.custom_price * product.real_qty : ctrl.listProducts[product.product_id].price * product.real_qty : '' | number }}
             </td>
+            <td><i ng-click="removeProduct($index)" style="font-size: 1.5em; cursor: pointer;" class="fa fa-trash-o" aria-hidden="true"></i></td>
        </tr>
        <tr>
            <td></td>
            <td></td>
            <td></td>
-           <td style="color: blue">{{ getQty() | number}}</td>
-           <td style="color: red">{{ getRealQty()}}</td>
+           <td style="color: blue; padding-left: 12px;">{{ getQty() | number}}</td>
+           <td style="color: red; padding-left: 12px;">{{ getRealQty()}}</td>
            <td>
                <md-checkbox aria-label="Select All"  ng-checked="isChecked()" 
                          md-indeterminate="isIndeterminate()"
@@ -94,8 +96,11 @@
                 </md-checkbox>
            </td>
            <td style="color: red">{{ getTotal() | number}}</td>
+           <td></td>
        </tr>
     </table>
-    <md-button class="md-raised md-primary" ng-click="addProduct()">Add product</md-button>
-    
+    <md-button class="md-warn" ng-click="addProduct()">Add product</md-button>
+    <br><br>
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="saveOrder()">Save</md-button>
+    <pre>{{order|json}}</pre>
 </div>

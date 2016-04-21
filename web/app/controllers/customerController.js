@@ -11,10 +11,8 @@ app.controller('CustomerController', function($scope, $filter, $http) {
         if (customer.apartment && $scope.apartments.length) {
             
             var selected = $filter('filter')($scope.apartments, {value: customer.apartment});
-            console.log(selected);
             return selected.length ? selected[0].text : 'Not set';
         } else {
-            console.log(customer);
             return customer.apartment || 'Not set';
         }
     };
