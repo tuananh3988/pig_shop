@@ -103,5 +103,18 @@ class ApiController extends Controller
         $product->setAttributes($post);
         $product->save();
     }
-
+    
+    public function actionOrderSave()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $post = json_decode(file_get_contents('php://input'), true);
+        var_dump($post);die;
+        $product = Products::findOne($post['product_id']);
+        if (empty($product)) {
+            $product = new Products();
+        }
+        
+        $product->setAttributes($post);
+        $product->save();
+    }
 }

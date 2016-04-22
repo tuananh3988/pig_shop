@@ -2,12 +2,22 @@
     'use strict';
     app.controller('ordersController', ordersController);
     function ordersController($timeout, $q, $log, $http, $filter, $scope) {
+        //Order status
+        $scope.status = [
+            {value: 1, text: 'New'},
+            {value: 2, text: 'In proccess'},
+            {value: 3, text: 'Completed'},
+            {value: 0, text: 'Canceled'}
+        ];
+    
         $scope.order = {
+            order_id: '',
             customer_id: '',
             product_type_id: 1,
-            note: '',
+            note: ' ',
             total: 0,
             total_qty: 0,
+            status: 1,
             products: [
                 {
                 product_id: '',
@@ -115,11 +125,10 @@
             }
         }
         function searchTextChange(text) {
-            $log.info('Text changed to ' + text);
+            $scope.order.customer_id = '';
         }
         function selectedItemChange(item) {
             $scope.order.customer_id = item.value;
-            $log.info('Item changed to ' + JSON.stringify(item));
         }
         
         
@@ -191,5 +200,10 @@
                 
             }
         }
+        
+        $scope.saveOrder = function(id) {
+            //$scope.user not updated yet
+            return $http.post('api/order-save', $scope.order);
+        };
     }
 })();

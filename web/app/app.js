@@ -1,4 +1,4 @@
-var app = angular.module('PigApp', ['ui.router', "xeditable", 'ngAnimate', "ngAria", 'ngMaterial', 'angular.filter']);
+var app = angular.module('PigApp', ['ui.router', "xeditable", 'ngAnimate', "ngAria", 'ngMaterial', 'angular.filter', 'ngMessages']);
 
 
 app.run(function(editableOptions) {
