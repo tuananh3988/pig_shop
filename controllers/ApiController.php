@@ -9,6 +9,8 @@ use yii\filters\VerbFilter;
 use app\models\Customers;
 use app\models\ProductType;
 use app\models\Products;
+use app\models\Orders;
+use app\models\ProductQty;
 
 class ApiController extends Controller
 {
@@ -108,13 +110,40 @@ class ApiController extends Controller
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $post = json_decode(file_get_contents('php://input'), true);
-        var_dump($post);die;
-        $product = Products::findOne($post['product_id']);
-        if (empty($product)) {
-            $product = new Products();
+        //var_dump($post);die;
+        $order = new Orders();
+        
+        $order->setAttributes($post);
+        $order->created_by = 1;
+        $order->created_date = date('Y-m-d H:i:s');
+        $order->save();
+        
+        $total = 0;
+        foreach ($post['products'] as $key => $p) {
+            $orderQty = new ProductQty();
+            if (empty($p['product_id'])) {
+                continue;
+            }
+            
+            $price = Products::getProductPrice($p['product_id']);
+            if ($p['free']) {
+                $subtotal = 0;
+            } else {
+                if (empty($p['custom_price'])) {
+                    $subtotal = $p['qty_real'] * $price;
+                } else {
+                    $subtotal = $p['qty_real'] * $p['custom_price'];
+                }
+            }
+            
+            $orderQty->setAttributes($p);
+            $orderQty->order_id = $order->order_id;
+            $orderQty->subtotal = $subtotal;
+            $orderQty->save();
+            $total += $subtotal;
         }
         
-        $product->setAttributes($post);
-        $product->save();
+        $order->total = $total;
+        $order->save();
     }
 }

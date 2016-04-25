@@ -21,8 +21,9 @@
             products: [
                 {
                 product_id: '',
+                price: 0,
                 qty: 0,
-                real_qty: 0,
+                qty_real: 0,
                 custom_price: '',
                 subtotal: 0,
                 free: false,
@@ -34,8 +35,9 @@
         $scope.addProduct = function () {
             $scope.inserted = {
                 product_id: '',
+                price: 0,
                 qty: 0,
-                real_qty: 0,
+                qty_real: 0,
                 custom_price: '',
                 subtotal: 0,
                 free: false,
@@ -93,9 +95,6 @@
             self.listProducts = response;
         });
 
-        
-        self.simulateQuery = false;
-        self.isDisabled = false;
         // list of `state` value/display objects
         self.querySearch = querySearch;
         self.selectedItemChange = selectedItemChange;
@@ -154,7 +153,7 @@
             var total = 0;
             for(var i = 0; i < $scope.order.products.length; i++){
                 var product = $scope.order.products[i];
-                total += (product.real_qty);
+                total += (product.qty_real);
             }
             return total;
         }
@@ -202,6 +201,11 @@
         }
         
         $scope.saveOrder = function(id) {
+            if (!$scope.order.customer_id) {
+                $scope.searchForm.autocompleteField.$setValidity('required', false);
+                window.scrollTo(0, 0);
+                return;
+            }
             //$scope.user not updated yet
             return $http.post('api/order-save', $scope.order);
         };

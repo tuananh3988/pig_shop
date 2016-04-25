@@ -49,4 +49,9 @@ class Products extends \yii\db\ActiveRecord
             'has_special_qty' => 'Has Special Qty',
         ];
     }
+    
+    public static function getProductPrice($productId) {
+        $data = self::findOne($productId);
+        return $data->price;
+    }
 }

@@ -5,7 +5,6 @@
     <md-content class="md-block">
         <md-autocomplete flex="" required
             md-input-name="autocompleteField"
-            ng-disabled="ctrl.isDisabled"
             md-no-cache="ctrl.noCache"
             md-selected-item="ctrl.selectedItem"
             md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
@@ -13,7 +12,7 @@
             md-selected-item-change="ctrl.selectedItemChange(item)"
             md-items="item in ctrl.querySearch(ctrl.searchText)"
             md-item-text="item.display"
-            md-min-length="0"
+            md-min-length="1"
             md-select-on-match="true"
             md-floating-label="Customer name">
             <md-item-template>
@@ -23,7 +22,7 @@
                 No customer matching "{{ctrl.searchText}}" were found.
                 <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
             </md-not-found>
-            <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+            <div ng-messages="searchForm.autocompleteField.$error" >
               <div ng-message="required">You <b>must</b> have a customer.</div>
             </div>
         </md-autocomplete>
@@ -63,7 +62,7 @@
        <tr ng-repeat="(key, product) in order.products">
             <td>
                 <md-input-container class="md-block">
-                    <md-select ng-model="product.product_id" ng-change="onChangeProduct('{{product.product_id}}', product)" >
+                    <md-select ng-model="product.product_id" ng-change="onChangeProduct('{{product.product_id}}', product)" md-select-name="product_name" required>
                         <md-option ng-repeat="p in ctrl.listProducts" value="{{ p.product_id }}" ng-disabled="isProductDisable(p.product_id)">
                           {{ p.product_name }}
                         </md-option>
@@ -85,7 +84,7 @@
             </td>
             <td>
                 <md-input-container class="md-block">
-                    <input ng-model="product.real_qty" type="number" step="0.5">
+                    <input ng-model="product.qty_real" type="number" step="0.5">
                </md-input-container>
             </td>
             <td>
@@ -93,7 +92,7 @@
                 </md-checkbox>
             </td>
             <td style="padding-top: 6px;">
-                {{ product.subtotal = product.free ? 0 : product.product_id ? product.custom_price ? product.custom_price * product.real_qty : ctrl.listProducts[product.product_id].price * product.real_qty : '' | number }}
+                {{ product.subtotal = product.free ? 0 : product.product_id ? product.custom_price ? product.custom_price * product.qty_real : ctrl.listProducts[product.product_id].price * product.qty_real : '' | number }}
             </td>
             <td><i ng-click="removeProduct($index)" style="font-size: 1.5em; cursor: pointer;" class="fa fa-trash-o" aria-hidden="true"></i></td>
        </tr>

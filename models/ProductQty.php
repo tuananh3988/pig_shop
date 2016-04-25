@@ -10,10 +10,10 @@ use Yii;
  * @property integer $product_qty_id
  * @property integer $product_id
  * @property integer $order_id
- * @property integer $qty
- * @property integer $qty_real
+ * @property double $qty
+ * @property double $qty_real
  * @property integer $custom_price
- * @property integer $total_product
+ * @property integer $subtotal
  * @property string $created_date
  * @property string $updated_date
  */
@@ -34,7 +34,8 @@ class ProductQty extends \yii\db\ActiveRecord
     {
         return [
             [['product_id', 'order_id', 'qty'], 'required'],
-            [['product_id', 'order_id', 'qty', 'qty_real', 'custom_price', 'total_product'], 'integer'],
+            [['product_id', 'order_id', 'custom_price', 'subtotal'], 'integer'],
+            [['qty', 'qty_real'], 'number'],
             [['created_date', 'updated_date'], 'safe']
         ];
     }
@@ -51,7 +52,7 @@ class ProductQty extends \yii\db\ActiveRecord
             'qty' => 'Qty',
             'qty_real' => 'Qty Real',
             'custom_price' => 'Custom Price',
-            'total_product' => 'Total Product',
+            'subtotal' => 'Subtotal',
             'created_date' => 'Created Date',
             'updated_date' => 'Updated Date',
         ];
